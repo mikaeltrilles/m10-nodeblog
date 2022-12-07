@@ -14,11 +14,11 @@ app.use(express.static('public'));
 app.set('view engine', 'ejs');
 
 
-// Declarartion of the views
-app.set('views', path.join(__dirname, 'views'));
+// Declaration des views si le dossier est different de views
+// app.set('views', path.join(__dirname, 'views'));
 
 
-// Rendering of the views
+// Rendu de views
 app.get('/', (req, res) => {
   res.render('index');
 });
