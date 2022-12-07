@@ -14,8 +14,8 @@ app.use(express.static('public'));
 app.set('view engine', 'ejs');
 
 
-// Declaration des views si le dossier est different de views
-// app.set('views', path.join(__dirname, 'views'));
+//TODO Declaration des views si le dossier est different de views
+//TODO app.set('views', path.join(__dirname, 'views'));
 
 
 // Rendu de views
