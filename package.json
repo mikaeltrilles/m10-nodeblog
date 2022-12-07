@@ -1,0 +1,22 @@
+{
+  "name": "nodeblog",
+  "version": "1.0.0",
+  "description": "Mini blog en NodeJS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mikaeltrilles/m10-nodeblog.git"
+  },
+  "author": "Mikael Trilles",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/mikaeltrilles/m10-nodeblog/issues"
+  },
+  "homepage": "https://github.com/mikaeltrilles/m10-nodeblog#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
