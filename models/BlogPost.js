@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-const { Schema } = mongoose;
+import { Schema } from 'mongoose';
 
 const BlogPostSchema = new Schema({
   title: String, // String is shorthand for {type: String}
@@ -8,4 +8,4 @@ const BlogPostSchema = new Schema({
 
 const BlogPost = mongoose.model('BlogPost', BlogPostSchema);
 
-module.exports = BlogPost;
+export default BlogPost;
