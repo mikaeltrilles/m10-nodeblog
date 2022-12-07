@@ -2,6 +2,22 @@
 
 // Importing the modules
 const express = require('express');
+const mongoose = require('mongoose');
+
+
+mongoose.set('strictQuery', true);  // Pour éviter les erreurs de type "strictQuery"
+
+// Connexion à la base de données
+mongoose.connect(
+  'mongodb://localhost:27017/blogdb', {
+  useNewUrlParser: true,  // Pour éviter les erreurs de type "useNewUrlParser"
+  useUnifiedTopology: true // Pour éviter les erreurs de type "useUnifiedTopology"
+});
+db = mongoose.connection; // Connexion à la base de données
+db.on('error', console.error.bind(console, 'connection error:')); // Affichage des erreurs
+db.once('open', function () {
+  console.log("connecté à Mongoose")  // Affichage de la connexion
+});
 
 // Declaration of the variables
 const path = require('path');
