@@ -1,34 +1,31 @@
-// Fichier principal du serveur Node de l'application, déclaration du 'path' et du 'port' du serveur
+// Description: This is the main file of the blog
+
+// Importing the modules
 const express = require('express');
+
+// Declaration of the variables
 const path = require('path');
 const app = express();
 const port = 3000;
 
-// Routes des pages statiques dans le dossier "public"
-app.use(express.static(__dirname + '/public'));
+// Declaration of the static folder
+app.use(express.static('public'));
 
-
-
-// Routes des pages dynamiques dans le dossier "pages"
+// Declaration of the routes
 app.get('/', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'index.html'));
+  res.sendFile(path.resolve(__dirname, 'pages/index.html'));
 })
 app.get('/about', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'about.html'));
-})
-app.get('/about-json', (req, res) => {
-  res. json ({
-    content: "About page content !"
-  });
+  res.sendFile(path.resolve(__dirname, 'pages/about.html'));
 })
 app.get('/contact', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'contact.html'));
+  res.sendFile(path.resolve(__dirname, 'pages/contact.html'));
 })
 app.get('/post', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'post.html'));
+  res.sendFile(path.resolve(__dirname, 'pages/post.html'));
 })
 
-// Ecoute du serveur sur le port 3000
+// Listening to the port
 app.listen(port, () => {
-  console.log(`Express app listening at http://localhost:${port}`);
-})
+  console.log(`Blog listening at http://localhost:${port}`);
+});
