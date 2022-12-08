@@ -32,8 +32,11 @@ const port = 3000;
 
 // Declaration du dossier statique public
 app.use(express.static('public'));
-app.use(express.json());  // Fait de la requete un objet json
+// Fait de la requete un objet json
+app.use(express.json());
+// Utilisation de ejs comme moteur de rendu
 app.set('view engine', 'ejs');
+// Interprete le nom des inputs du formulaire et les decode du cote serveur
 app.use(express.urlencoded({ extended: true }));  
 
 
@@ -65,13 +68,10 @@ app.get('/post/new', (req, res) => {
 // Sauvegarde du formulaire dans la base de données
 app.post('/post', async (req, res) => {
   // Recupération des valeurs des champs du formulaire
-  await BlogPost.create({
-    title: req.body.titre,
-    body: req.body.content,
-  }, (error, blogpost) => {
+  await BlogPost.create(
+    req.body, (error, blogpost) => {
     res.redirect('/');
-  }
-  );
+  });
   console.log(req.body);
 });
 
