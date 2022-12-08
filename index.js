@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const BlogPost = require('./models/BlogPost');
 
+
 // Pour éviter les erreurs de type "strictQuery"
 mongoose.set('strictQuery', true); 
 
@@ -45,8 +46,10 @@ app.use(express.urlencoded({ extended: true }));
 
 
 // Rendu dynamique de views en fonction de l'url
-app.get('/', (req, res) => {
-  res.render('index');
+app.get('/', async (req, res) => {
+  const blogposts = await BlogPost.find({});
+  res.render('index', { blogposts });
+  console.log(blogposts);
 });
 
 app.get('/about', (req, res) => {
@@ -59,6 +62,13 @@ app.get('/contact', (req, res) => {
 
 app.get('/post', (req, res) => {
   res.render('post');
+});
+
+// Rendu dynamique de views en fonction de l'url
+app.get('/post/:id', async (req, res) => {
+  const blogpost = await BlogPost.findById(req.params.id);
+  res.render('post', { blogpost });
+  console.log(blogpost);
 });
 
 app.get('/post/new', (req, res) => {
