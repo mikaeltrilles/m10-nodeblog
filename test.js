@@ -17,9 +17,10 @@ mongoose.connection.once('open', () => {
 
 // Création de l'article de blog
 BlogPost.create({
-  title: 'Mon premier article de blog via Mongoose...',
-  body: "En fait créer un article de blog avec Mongoose n'est pas si compliqué... Si ?"
+  title: 'Deuxième jour Node avec Mongoose',
+  body: "Ca marche encore !"
 }, (error, blogpost) => {
   console.log(error, blogpost);
 }
 );
+

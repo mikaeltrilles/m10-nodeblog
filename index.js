@@ -1,6 +1,7 @@
 // Importation des modules
 const express = require('express');
 const mongoose = require('mongoose');
+const BlogPost = require('./models/BlogPost');
 
 // Pour éviter les erreurs de type "strictQuery"
 mongoose.set('strictQuery', true); 
@@ -31,7 +32,9 @@ const port = 3000;
 
 // Declaration du dossier statique public
 app.use(express.static('public'));
+app.use(express.json());  // Fait de la requete un objet json
 app.set('view engine', 'ejs');
+app.use(express.urlencoded({ extended: true }));  
 
 
 //~ Declaration des views si le dossier est different de views
@@ -54,6 +57,27 @@ app.get('/contact', (req, res) => {
 app.get('/post', (req, res) => {
   res.render('post');
 });
+
+app.get('/post/new', (req, res) => {
+  res.render('create');
+});
+
+// Sauvegarde du formulaire dans la base de données
+app.post('/post', async (req, res) => {
+  // Recupération des valeurs des champs du formulaire
+  await BlogPost.create({
+    title: req.body.titre,
+    body: req.body.content,
+  }, (error, blogpost) => {
+    res.redirect('/');
+  }
+  );
+  console.log(req.body);
+});
+
+
+
+
 
 // Ecoute du port
 app.listen(port, () => {
