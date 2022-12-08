@@ -3,7 +3,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const BlogPost = require('./models/BlogPost');
 
-
 // Pour éviter les erreurs de type "strictQuery"
 mongoose.set('strictQuery', true); 
 
@@ -42,7 +41,7 @@ app.use(express.urlencoded({ extended: true }));
 
 
 //~ Declaration des views si le dossier est different de views
-//~ app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'views'));
 
 
 // Rendu dynamique de views en fonction de l'url
@@ -52,6 +51,29 @@ app.get('/', async (req, res) => {
   console.log(blogposts);
 });
 
+app.get('/post/new', (req, res) => {
+  res.render('create');
+});
+
+// Sauvegarde du formulaire dans la base de données
+app.post('/post', async (req, res) => {
+  // Recupération des valeurs des champs du formulaire
+  await BlogPost.create(
+    req.body, (error, blogpost) => {
+      res.redirect('/');
+    });
+  console.log(req.body);
+});
+
+// Rendu dynamique de views en fonction de l'url
+app.get('/post/:id', async (req, res) => {
+  console.log(req.params.id)
+  const blogpost = await BlogPost.findById(req.params.id);
+  res.render('post', { blogpost });
+  console.log(blogpost);
+});
+
+// Pages Standards
 app.get('/about', (req, res) => {
   res.render('about');
 });
@@ -64,26 +86,11 @@ app.get('/post', (req, res) => {
   res.render('post');
 });
 
-// Rendu dynamique de views en fonction de l'url
-app.get('/post/:id', async (req, res) => {
-  const blogpost = await BlogPost.findById(req.params.id);
-  res.render('post', { blogpost });
-  console.log(blogpost);
-});
 
-app.get('/post/new', (req, res) => {
-  res.render('create');
-});
 
-// Sauvegarde du formulaire dans la base de données
-app.post('/post', async (req, res) => {
-  // Recupération des valeurs des champs du formulaire
-  await BlogPost.create(
-    req.body, (error, blogpost) => {
-    res.redirect('/');
-  });
-  console.log(req.body);
-});
+
+
+
 
 
 
@@ -93,3 +100,6 @@ app.post('/post', async (req, res) => {
 app.listen(port, () => {
   console.log(`Blog listening at http://localhost:${port}`);
 });
+
+
+
